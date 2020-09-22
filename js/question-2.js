@@ -15,11 +15,11 @@ async function getData() {
                 htmlText += createHTML(data[i]);
             }
         }
-        displayHTML(htmlText);
+        displayHTML(true, htmlText);
     }
     catch (error) {
         htmlText = createError(error);
-        displayHTML(htmlText);
+        displayHTML(false, htmlText);
     }
 }
 
@@ -38,9 +38,18 @@ function createHTML(dataObj) {
     return html;
 }
 
-function displayHTML(html) {
+function displayHTML(success, html) {
     const mainContainer = document.querySelector(".main-container");
     mainContainer.innerHTML = html;
+
+    const flexItem = document.querySelectorAll(".flex-item");
+
+    if (success) {
+        flexItem.forEach(x => x.style.background = "rgba(144,238,144, 0.5)");
+    } else {
+        flexItem.forEach(x => x.style.background = "rgba(255,0,0, 0.5)");
+    }
+
 }
 
 function createError(error) {
